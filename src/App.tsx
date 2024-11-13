@@ -1,13 +1,14 @@
 import React from 'react';
-import { useGetDataQuery, DataItem } from './features/api/apiSlice';
+import { useGetGamesQuery, DataItem } from './features/api/apiSlice';
 import './App.css';
 
 
 const App: React.FC = () => {
-  const { data, error, isLoading } = useGetDataQuery();
+  const { data, error, isLoading } = useGetGamesQuery();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error:</div>;
+
   return (
     <div className="App">
       <h1>Данные</h1>

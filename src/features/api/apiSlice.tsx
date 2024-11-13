@@ -1,21 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface DataItem {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://cors-anywhere.herokuapp.com/https://www.freetogame.com' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/' }), 
     endpoints: (builder) => ({
-        getData: builder.query<DataItem[], void>({
-            query: () => '/api/data',
-        }),
+      getGames: builder.query<DataItem[], void>({
+        query: () => '/api/games', 
+      }),
     }),
 });
 
-export const { useGetDataQuery } = apiSlice;
+
+export const { useGetGamesQuery } = apiSlice;
 export default apiSlice;
 
 
