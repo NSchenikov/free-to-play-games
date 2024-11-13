@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface DataItem {
   id: number;
-  name: string;
+  title: string;
 }
 
 const apiSlice = createApi({

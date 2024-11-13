@@ -1,21 +1,26 @@
+
+
+
 const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const cors = require('cors');
+const axios = require('axios');
 const app = express();
-const PORT = 8080;
-app.use((req, res, next) => {
-    console.log(`Received request for: ${req.url}`);
-    next();
+
+app.use(cors());
+
+app.get('/api/games', async (req, res) => {
+    try {
+        const response = await axios.get('https://www.freetogame.com/api/games');
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ message: 'Error fetching data' });
+    }
 });
-app.use('/api', createProxyMiddleware({
-    target: 'https://www.freetogame.com',
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api': '/api',
-    },
-}));
-app.use('/assets', express.static('public/assets')); 
+
+const PORT = 8080;
 app.listen(PORT, () => {
-    console.log(`Proxy server is running at http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
    //node '/Users/nikitasenikov/Работа/устройство/lesson 6/hw/free-to-play-games/src/features/server.js'

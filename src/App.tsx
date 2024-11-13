@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <h1>Данные</h1>
       <ul>
         {data?.map((item: DataItem) => (
-          <li key={item.id}>{item.name}</li>
+          <li key={item.id}>{item.title}</li>
         ))}
       </ul>
     </div>
