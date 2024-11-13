@@ -27,6 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://www.freetogame.com",
   "eslintConfig": {
     "extends": [
       "react-app",
