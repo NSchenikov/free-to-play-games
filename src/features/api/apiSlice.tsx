@@ -9,16 +9,25 @@ export interface DataItem {
   thumbnail: string;
 }
 
-const apiSlice = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/' }), 
-    endpoints: (builder) => ({
-      getGames: builder.query<DataItem[], void>({
-        query: () => '/api/games', 
-      }),
-    }),
-});
+interface GetGamesQueryArgs {
+  genre?: string;
+  platform?: string;
+}
 
+const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080/' }),
+  endpoints: (builder) => ({
+    getGames: builder.query<DataItem[], GetGamesQueryArgs>({
+      query: ({ genre, platform }) => {
+        const queryParams = new URLSearchParams();
+        if (genre) queryParams.append('genre', genre);
+        if (platform) queryParams.append('platform', platform);
+        return `/api/games?${queryParams.toString()}`;
+      },
+    }),
+  }),
+});
 
 export const { useGetGamesQuery } = apiSlice;
 export default apiSlice;
