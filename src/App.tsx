@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetGamesQuery, DataItem } from './features/api/apiSlice';
+import { Game } from './components/game';
 import './App.css';
 
 
@@ -11,12 +12,12 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Данные</h1>
-      <ul>
+      <h1>Games main</h1>
+      <div className='gamesWrapper'>
         {data?.map((item: DataItem) => (
-          <li key={item.id}>{item.title}</li>
+          <Game key={item.id} title={item.title} description={`release date: ${item.release_date};\npublisher: ${item.publisher}; genre: ${item.genre}`} thumbnail={item.thumbnail}></Game>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

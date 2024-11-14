@@ -3,6 +3,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export interface DataItem {
   id: number;
   title: string;
+  release_date: string;
+  publisher: string;
+  genre: string;
+  thumbnail: string;
 }
 
 const apiSlice = createApi({
