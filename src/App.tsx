@@ -7,8 +7,6 @@ import { Unique } from './utilities/unique';
 import type { MenuProps } from 'antd';
 import './App.css';
 
-
-
 const App: React.FC = () => {
   const { data: allData = [], error, isLoading } = useGetGamesQuery({});
   const [filteredData, setFilteredData] = useState<DataItem[]>(allData);

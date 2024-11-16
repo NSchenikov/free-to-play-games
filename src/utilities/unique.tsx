@@ -11,8 +11,8 @@ export const Unique = (arr: DataItem[], key: keyof DataItem): MenuProps['items']
         if (typeof value === 'string' && value && !uniqueValues.has(value)) {
             uniqueValues.add(value);
             res.push({
-                label: <span>{value}</span>, // Лейбл для отображения
-                key: value + index, // Используем значение и индекс для уникальности
+                label: <span>{value}</span>,
+                key: value + index,
             });
         }
     });
