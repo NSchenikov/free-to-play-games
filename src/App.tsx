@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { useGetGamesQuery, DataItem } from './features/api/apiSlice';
 import { Game } from './components/game';
+import { Spinn } from './components/spinn';
 import './App.css';
+
 
 
 const App: React.FC = () => {
@@ -22,7 +24,7 @@ const App: React.FC = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='spinner'><Spinn/></div>;
   if (error) return <div>Error:</div>;
 
   return (
