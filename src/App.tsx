@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Games main</h1>
+      <div><h1>Games main</h1></div>
       <div>
         <button onClick={() => handleFilterChange('MMORPG')}>MMORPG</button>
         <button onClick={() => handleFilterChange('Shooter')}>Shooter</button>
