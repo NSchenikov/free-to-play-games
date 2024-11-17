@@ -10,7 +10,6 @@ import './App.css';
 const App: React.FC = () => {
   const { data: allData = [], error, isLoading } = useGetGamesQuery({});
   const [filteredData, setFilteredData] = useState<DataItem[]>(allData);
-  const uniqueGenres: MenuProps['items'] = Unique(filteredData, 'genre');
 
   useEffect(() => {
     if (allData.length > 0) {
@@ -18,29 +17,27 @@ const App: React.FC = () => {
     }
   }, [allData]);
 
-  const handleFilterChange = (genre: string) => {
-    if (genre) {
-      setFilteredData(allData.filter(game => game.genre === genre));
-    } else {
-      setFilteredData(allData);
-    }
+  const handleFilterChange = (selectedGenre: string) => {
+    const filtered = allData.filter(game => game.genre === selectedGenre);
+    setFilteredData(filtered);
+  };
+
+  const handleReset = () => {
+    setFilteredData(allData);
   };
 
   if (isLoading) return <div className='spinner'><Spinn/></div>;
   if (error) return <div>Error:</div>;
 
+  const uniqueGenres: MenuProps['items'] = Unique(allData, 'genre', handleFilterChange);
+
   return (
     <div className="App">
       <div><h1>Games main</h1></div>
-      <div>
+      <div className='popups-wrapper'>
         <span>Filter by: </span>
         <Popup title='genre' elements={uniqueGenres}></Popup>
-        <button onClick={() => handleFilterChange('MMORPG')}>MMORPG</button>
-        <button onClick={() => handleFilterChange('Shooter')}>Shooter</button>
-        <button onClick={() => handleFilterChange('MOBA')}>MOBA</button>
-        <button onClick={() => handleFilterChange('Strategy')}>Strategy</button>
-        <button onClick={() => handleFilterChange('Battle Royale')}>Battle Royale</button>
-        <button onClick={() => handleFilterChange('')}>All Games</button>
+        <button onClick={handleReset}>Reset</button>
       </div>
       <div className='gamesWrapper'>
         {filteredData?.map((item: DataItem) => (
