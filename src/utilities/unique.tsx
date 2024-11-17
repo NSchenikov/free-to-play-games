@@ -8,14 +8,15 @@ export const Unique = (arr: DataItem[], key: keyof DataItem): MenuProps['items']
     arr.forEach((item, index) => {
         const value = item[key];
 
-        if (typeof value === 'string' && value && !uniqueValues.has(value)) {
+        if (typeof value === 'string' && value && !uniqueValues.has(value.trim())) {
             uniqueValues.add(value);
             res.push({
                 label: <span>{value}</span>,
-                key: value + index,
+                key: index,
             });
         }
     });
+    console.log(res);
 
     return res;
 };
