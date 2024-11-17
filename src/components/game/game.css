@@ -1,0 +1,18 @@
+/* .game-title {
+    text-decoration: none !important;
+}
+
+.game-description {
+    text-decoration: none !important;
+} */
+
+
+.ant-card-meta-title {
+    text-decoration: none !important; 
+    color: inherit; 
+}
+
+.ant-card-meta-description {
+    text-decoration: none !important; 
+    color: inherit; 
+}

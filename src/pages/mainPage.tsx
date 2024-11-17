@@ -2,13 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { RootState } from '../store/store'
 import { useGetGamesQuery } from '../features/api/apiSlice';
-import { Game } from '../components/game';
+import { Game } from '../components/game/game';
 import { Spinn } from '../components/spinn';
 import { Popup } from '../components/popup';
 import { Unique } from '../utilities/unique';
 import { storeGames } from '../features/games/gamesSlice';
 import { GameData } from '../features/games/gamesSlice';
 import type { MenuProps } from 'antd';
+import { Link } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {
     const dispatch = useDispatch();
@@ -47,12 +48,14 @@ export const MainPage: React.FC = () => {
             </div>
             <div className='gamesWrapper'>
                 {gamesFromRedux?.map((item: GameData) => (
-                    <Game
-                        key={item.id}
-                        title={item.title}
-                        description={`Release date: ${item.release_date}; Publisher: ${item.publisher}; Genre: ${item.genre}`}
-                        thumbnail={item.thumbnail}
-                    />
+                    <Link to={`/game/${item.id}`} key={item.id}>
+                        <Game
+                            key={item.id}
+                            title={item.title}
+                            description={`Release date: ${item.release_date}; Publisher: ${item.publisher}; Genre: ${item.genre}`}
+                            thumbnail={item.thumbnail}
+                        />
+                    </Link>
                 ))}
             </div>
         </div>

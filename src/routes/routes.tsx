@@ -7,7 +7,7 @@ export const AppRoutes: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/gamePage" element={<GamePage />} />
+            <Route path="/game/:id" element={<GamePage />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     )
