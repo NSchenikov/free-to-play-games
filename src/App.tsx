@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { RootState } from './store/store';
 import { useGetGamesQuery } from './features/api/apiSlice';
@@ -17,6 +17,7 @@ const App: React.FC = () => {
 
     const gamesFromRedux = useSelector((state: RootState) => state.games.games);
     const [selectedGenre, setSelectedGenre] = React.useState<string | null>(null);
+    // const [allData, setAllData] = useState(null)
 
     const { data: games, error, isLoading } = useGetGamesQuery({ genre: selectedGenre || undefined });
 
@@ -25,6 +26,12 @@ const App: React.FC = () => {
             dispatch(storeGames(games));
         }
     }, [games, dispatch]);
+
+    // React.useEffect(() => {
+    //     if (games) {
+    //         setAllData(games)
+    //     }
+    // }, []);
 
     const handleFilterChange = (genre: string) => {
         setSelectedGenre(genre);
