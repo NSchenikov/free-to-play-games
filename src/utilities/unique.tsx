@@ -19,7 +19,5 @@ export const Unique = (arr: DataItem[], key: keyof DataItem, onSelect: (value: s
         }
     });
 
-    console.log(res);
-
     return res;
 };

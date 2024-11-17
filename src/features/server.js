@@ -1,6 +1,3 @@
-
-
-
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -10,7 +7,13 @@ app.use(cors());
 
 app.get('/api/games', async (req, res) => {
     try {
-        const response = await axios.get('https://www.freetogame.com/api/games');
+        const { category } = req.query;
+        console.log('Received category:', category); // Отладочная информация
+        const url = category 
+            ? `https://www.freetogame.com/api/games?category=${category.toLowerCase()}` 
+            : `https://www.freetogame.com/api/games`;
+
+        const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -22,5 +25,3 @@ const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-   //node '/Users/nikitasenikov/Работа/устройство/lesson 6/hw/free-to-play-games/src/features/server.js'

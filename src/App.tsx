@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { useGetGamesQuery, DataItem } from './features/api/apiSlice';
 import { Game } from './components/game';
 import { Spinn } from './components/spinn';
@@ -8,40 +8,35 @@ import type { MenuProps } from 'antd';
 import './App.css';
 
 const App: React.FC = () => {
-  const { data: allData = [], error, isLoading } = useGetGamesQuery({});
-  const [filteredData, setFilteredData] = useState<DataItem[]>(allData);
+  const [selectedGenre, setSelectedGenre] = React.useState<string | null>(null);
+  
 
-  useEffect(() => {
-    if (allData.length > 0) {
-      setFilteredData(allData);
-    }
-  }, [allData]);
+  const { data: games, error, isLoading } = useGetGamesQuery({ genre: selectedGenre || undefined });
 
-  const handleFilterChange = (selectedGenre: string) => {
-    const filtered = allData.filter(game => game.genre === selectedGenre);
-    setFilteredData(filtered);
+  const handleFilterChange = (genre: string) => {
+    setSelectedGenre(genre); 
   };
 
   const handleReset = () => {
-    setFilteredData(allData);
+    setSelectedGenre(null); 
   };
 
   if (isLoading) return <div className='spinner'><Spinn/></div>;
-  if (error) return <div>Error:</div>;
+  if (error) return <div>Error loading games.</div>;
 
-  const uniqueGenres: MenuProps['items'] = Unique(allData, 'genre', handleFilterChange);
+  const uniqueGenres: MenuProps['items'] = Unique(games || [], 'genre', handleFilterChange); 
 
   return (
     <div className="App">
-      <div><h1>Games main</h1></div>
+      <div><h1>Games Main</h1></div>
       <div className='popups-wrapper'>
         <span>Filter by: </span>
         <Popup title='genre' elements={uniqueGenres}></Popup>
         <button onClick={handleReset}>Reset</button>
       </div>
       <div className='gamesWrapper'>
-        {filteredData?.map((item: DataItem) => (
-          <Game key={item.id} title={item.title} description={`release date: ${item.release_date};\npublisher: ${item.publisher}; genre: ${item.genre}`} thumbnail={item.thumbnail}></Game>
+        {games?.map((item: DataItem) => (
+          <Game key={item.id} title={item.title} description={`Release date: ${item.release_date}; Publisher: ${item.publisher}; Genre: ${item.genre}`} thumbnail={item.thumbnail}></Game>
         ))}
       </div>
     </div>
