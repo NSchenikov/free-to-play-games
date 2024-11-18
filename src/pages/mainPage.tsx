@@ -9,7 +9,6 @@ import { Unique } from '../utilities/unique';
 import { storeGames } from '../features/games/gamesSlice';
 import { GameData } from '../features/games/gamesSlice';
 import type { MenuProps } from 'antd';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {

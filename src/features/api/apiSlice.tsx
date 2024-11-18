@@ -25,8 +25,11 @@ const apiSlice = createApi({
         return `/api/games`; 
     }
     }),
+    getGame: builder.query<DataItem, number>({
+      query: (id) => `/api/game?id=${id}`, 
+    }),
   }),
 });
 
-export const { useGetGamesQuery } = apiSlice;
+export const { useGetGamesQuery, useGetGameQuery } = apiSlice;
 export default apiSlice;
