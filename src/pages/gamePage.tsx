@@ -16,8 +16,18 @@ export const GamePage: React.FC = () => {
         <Link to="/">Back</Link>
         <h1>{game.title}</h1>
         <p>{`Release date: ${game.release_date}`}</p>
-        <p>{`Publisher: ${game.publisher}`}</p>
+        <p>{`Developer: ${game.developer}`}</p>
         <p>{`Genre: ${game.genre}`}</p>
+        <div>
+                <h2>Minimum System Requirements:</h2>
+                <ul>
+                    <li>OS: {game.minimum_system_requirements.os || 'N/A'}</li>
+                    <li>Processor: {game.minimum_system_requirements.processor || 'N/A'}</li>
+                    <li>Memory: {game.minimum_system_requirements.memory || 'N/A'}</li>
+                    <li>Graphics: {game.minimum_system_requirements.graphics || 'N/A'}</li>
+                    <li>Storage: {game.minimum_system_requirements.storage || 'N/A'}</li>
+                </ul>
+            </div>
         <img src={game.thumbnail} alt={game.title} />
       </div>
     )

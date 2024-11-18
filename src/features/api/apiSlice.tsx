@@ -9,6 +9,30 @@ export interface DataItem {
   thumbnail: string;
 }
 
+export interface ScreenshotItem {
+  id: number;
+  image: string;
+}
+
+export interface MinimumSystemRequirements {
+  os: string;
+  processor: string;
+  memory: string;
+  graphics: string;
+  storage: string;
+}
+
+export interface GameItem {
+  id: number;
+  title: string;
+  release_date: string;
+  developer: string;
+  genre: string;
+  thumbnail: string;
+  screenshots: ScreenshotItem[];
+  minimum_system_requirements: MinimumSystemRequirements
+}
+
 interface GetGamesQueryArgs {
   genre?: string;
 }
@@ -25,7 +49,7 @@ const apiSlice = createApi({
         return `/api/games`; 
     }
     }),
-    getGame: builder.query<DataItem, number>({
+    getGame: builder.query<GameItem, number>({
       query: (id) => `/api/game?id=${id}`, 
     }),
   }),
