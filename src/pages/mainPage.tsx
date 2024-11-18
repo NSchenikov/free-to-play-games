@@ -10,9 +10,11 @@ import { storeGames } from '../features/games/gamesSlice';
 import { GameData } from '../features/games/gamesSlice';
 import type { MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const gamesFromRedux = useSelector((state: RootState) => state.games.games);
     const [selectedGenre, setSelectedGenre] = React.useState<string | null>(null);
@@ -33,6 +35,10 @@ export const MainPage: React.FC = () => {
         setSelectedGenre(null);
     };
 
+    const handleGameClick = (item: GameData) => {
+        navigate(`/game/${item.id}`, { state: { item } });
+    };
+
     if (isLoading) return <div className='spinner'><Spinn/></div>;
     if (error) return <div>Error loading games.</div>;
 
@@ -48,14 +54,14 @@ export const MainPage: React.FC = () => {
             </div>
             <div className='gamesWrapper'>
                 {gamesFromRedux?.map((item: GameData) => (
-                    <Link to={`/game/${item.id}`} key={item.id}>
+                    <div onClick={() => handleGameClick(item)} key={item.id}>
                         <Game
                             key={item.id}
                             title={item.title}
                             description={`Release date: ${item.release_date}; Publisher: ${item.publisher}; Genre: ${item.genre}`}
                             thumbnail={item.thumbnail}
                         />
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>
