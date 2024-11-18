@@ -1,0 +1,39 @@
+.carousel {
+  position: relative; 
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  overflow: hidden; 
+  width: 365px; 
+  height: 200px; 
+}
+
+.carousel-image {
+  width: 365px; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+.carousel-button {
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  background-color: rgba(54, 77, 121, 0.8); 
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1; 
+}
+
+.left-button {
+  left: 10px; 
+}
+
+.right-button {
+  right: 10px; 
+}
+
+.carousel-button:hover {
+  background-color: #5a6ea1; 
+}

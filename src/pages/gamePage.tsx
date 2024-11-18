@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useGetGameQuery } from '../features/api/apiSlice';
 import { Spinn } from '../components/spinn';
+import { Carousel } from '../components/carousel/carousel'
 
 export const GamePage: React.FC = () => {
     const { id } = useParams<{ id: any }>(); 
@@ -12,12 +13,11 @@ export const GamePage: React.FC = () => {
     if (error) return <div>Error loading game details.</div>;
     if (!game) return <div>Game not found.</div>;
     return (
-      <div>
-        <Link to="/">Back</Link>
+      <div className='game-page-wrapper'>
         <h1>{game.title}</h1>
-        <p>{`Release date: ${game.release_date}`}</p>
-        <p>{`Developer: ${game.developer}`}</p>
-        <p>{`Genre: ${game.genre}`}</p>
+        <div>{`Release date: ${game.release_date}`}</div>
+        <div>{`Developer: ${game.developer}`}</div>
+        <div>{`Genre: ${game.genre}`}</div>
         <div>
                 <h2>Minimum System Requirements:</h2>
                 <ul>
@@ -27,8 +27,10 @@ export const GamePage: React.FC = () => {
                     <li>Graphics: {game.minimum_system_requirements.graphics || 'N/A'}</li>
                     <li>Storage: {game.minimum_system_requirements.storage || 'N/A'}</li>
                 </ul>
-            </div>
+        </div>
         <img src={game.thumbnail} alt={game.title} />
+        <Carousel images={game.screenshots}/>
+        <Link to="/">Back</Link>
       </div>
     )
 }
