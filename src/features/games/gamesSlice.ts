@@ -7,16 +7,19 @@ export interface GameData {
     release_date: string;
     publisher: string;
     thumbnail: string;
+    platform: string;
 }
 
 interface GamesState {
   games: GameData[];
   uniqueGenres: string[];
+  uniquePlatforms: string[];
 }
 
 const initialState: GamesState = {
   games: [],
-  uniqueGenres: []
+  uniqueGenres: [],
+  uniquePlatforms: []
 };
 
 const gamesSlice = createSlice({

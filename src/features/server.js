@@ -7,11 +7,23 @@ app.use(cors());
 
 app.get('/api/games', async (req, res) => {
     try {
-        const { category } = req.query;
-        console.log('Received category:', category);
-        const url = category 
-            ? `https://www.freetogame.com/api/games?category=${category.toLowerCase()}` 
-            : `https://www.freetogame.com/api/games`;
+        const { category, platform, sortBy } = req.query;
+
+        console.log('Received parameters:', { category, platform, sortBy });
+
+        let url = 'https://www.freetogame.com/api/games?';
+
+        if (category) {
+            url += `category=${category.toLowerCase()}&`; 
+        }
+        if (platform) {
+            url += `platform=${platform.toLowerCase()}&`;
+        }
+        if (sortBy) {
+            url += `sort-by=${sortBy.toLowerCase()}&`;
+        }
+
+        url = url.replace(/&$/, '');
 
         const response = await axios.get(url);
         res.json(response.data);
@@ -34,7 +46,6 @@ app.get('/api/game', async (req, res) => {
         
         const response = await axios.get(`https://www.freetogame.com/api/game?id=${id}`);
         
-        // Проверка на наличие данных
         if (!response.data) {
             console.log("No data received for ID:", id);
             return res.status(404).json({ message: 'Game not found' });
