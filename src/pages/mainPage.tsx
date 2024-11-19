@@ -91,8 +91,6 @@ export const MainPage: React.FC = () => {
         { label: 'Popularity', key: 'popularity', onSelect: () => handleSortChange('popularity') },
       ];
 
-      
-
     return (
         <div className="App">
             <div><h1>Games Main</h1></div>

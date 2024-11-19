@@ -12,14 +12,14 @@ export interface GameData {
 
 interface GamesState {
   games: GameData[];
-  uniqueGenres: string[];
-  uniquePlatforms: string[];
+  genres: string[];
+  platforms: string[];
 }
 
 const initialState: GamesState = {
   games: [],
-  uniqueGenres: [],
-  uniquePlatforms: []
+  genres: [],
+  platforms: []
 };
 
 const gamesSlice = createSlice({
@@ -28,7 +28,8 @@ const gamesSlice = createSlice({
   reducers: {
     storeGames: (state, action: PayloadAction<GameData[]>) => {
       state.games = action.payload;
-      state.uniqueGenres = Array.from(new Set(action.payload.map(game => game.genre)));
+      state.genres = Array.from(new Set(action.payload.map(game => game.genre)));
+      state.platforms = Array.from(new Set(action.payload.map(game => game.platform)));
     },
   },
 });
